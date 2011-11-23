@@ -33,6 +33,8 @@ public class ParsedFile {
      * It should be filled by <code>addTranslation()</code>
      * @param filename
      *          name of the file
+     * @param encoding
+     *          Encoding of the file
      */
     public ParsedFile(String filename, String encoding) {
         translationList = new ArrayList<Translation>();
