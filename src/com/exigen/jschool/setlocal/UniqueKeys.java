@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class UniqueKeys {
-    private static List<String> keys = new ArrayList<String>();
+    private static List<String> keys;
 
     public static boolean add(String key) {
         if (keys.contains(key)) return false;
@@ -26,5 +26,9 @@ class UniqueKeys {
 
     public  static String getKey(int index){
         return keys.get(index);
+    }
+
+    public static void initUniqueKey(){
+        keys = new ArrayList<String>() ;
     }
 }

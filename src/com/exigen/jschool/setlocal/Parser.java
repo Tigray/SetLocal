@@ -22,6 +22,7 @@ public class Parser {
      * @throws FormatException In a case of bad file format
      */
     public ParsedFile parse(String filename, String encoding) throws IOException, FormatException {
+        UniqueKeys.initUniqueKey();
         checkFile(filename);
         ParsedFile parsedFile = new ParsedFile(filename, encoding);
         BufferedReader reader = new BufferedReader(
