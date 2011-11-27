@@ -18,7 +18,7 @@ public class ComparePanel extends JPanel{
 	}
 
     private void initPanel(MainFrame frame){
-        osrPanel = new OpenSaveResetPanel(2, frame);
+        osrPanel = new OpenSaveResetPanel(3, frame);
         setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 

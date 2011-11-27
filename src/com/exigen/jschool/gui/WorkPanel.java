@@ -1,6 +1,11 @@
 package com.exigen.jschool.gui;
 
+import com.exigen.jschool.setlocal.DataTable;
+import com.exigen.jschool.setlocal.ParsedFile;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -24,10 +29,15 @@ public class WorkPanel extends JPanel{
 	private JButton filterLangButton = new JButton("Languages");
 
     private JTable dataTable;
+    private ParsedFile parsFile;
 
 	public WorkPanel(MainFrame frame) {
 		 initPanel(frame);
 	}
+
+    public  ParsedFile getParsFile(){
+        return parsFile;
+    }
 
     private void initPanel(MainFrame frame){
         osrPanel = new OpenSaveResetPanel(1, frame);
@@ -37,6 +47,12 @@ public class WorkPanel extends JPanel{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.NORTH;
+
+//        deleteKeyButton.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//        });
 
 		keyButtonPanel.add(addKeyButton);
 		keyButtonPanel.add(deleteKeyButton);
@@ -80,10 +96,33 @@ public class WorkPanel extends JPanel{
 		add(osrPanel, c);
     }
 
-    public JPanel getTablePanel(){
-        return tablePanel;
+    public void displayTable(ParsedFile parsedFile) {
+        if (parsedFile != null) {
+            parsFile = parsedFile;
+
+            dataTable = new DataTable(parsedFile);
+            parsedFile.initDataTable();
+
+//            JPanel tablePanel = workPanel.getTablePanel();
+            tablePanel.setLayout(new GridBagLayout());
+            GridBagConstraints c = new GridBagConstraints();
+            c.gridx = 0;
+            c.gridy = 0;
+            c.anchor = GridBagConstraints.CENTER;
+            c.fill = GridBagConstraints.HORIZONTAL;
+
+            dataTable.setPreferredScrollableViewportSize(new Dimension(500, 300));
+            JScrollPane scrollPane = new JScrollPane(dataTable);
+            tablePanel.add(scrollPane, c);
+        }
+
+        validate();
     }
 
+    public void removeTable(){
+        tablePanel.removeAll();
+        validate();
+    }
 
     public JPanel getWorkPanel() {
         return tablePanel;

@@ -40,4 +40,9 @@ public class WatchPanel extends JPanel{
         c.anchor = GridBagConstraints.NORTH;
         add(osrPanel, c);
     }
+
+    public void removeWatch(){
+        watchPanel.removeAll();
+        validate();
+    }
 }

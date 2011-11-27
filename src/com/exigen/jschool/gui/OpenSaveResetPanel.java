@@ -15,7 +15,7 @@ public class OpenSaveResetPanel extends JPanel {
      */
     private static final long serialVersionUID = 1L;
     MainFrame frame;
-    ParsedFile parsedFile;
+//    ParsedFile parsedFile;
     Parser parser;
 
     JPanel osrButtonPanel = new JPanel();
@@ -40,6 +40,7 @@ public class OpenSaveResetPanel extends JPanel {
                     case 1: {
                         if (fc.showOpenDialog(frame.getWorkPanel().getWorkPanel()) == JFileChooser.APPROVE_OPTION) {
                             parser = new Parser();
+                            ParsedFile parsedFile = null;
                             try {
                                 parsedFile = parser.parse(fc.getSelectedFile().getPath(), "UTF-8");
                                 System.out.println();
@@ -49,7 +50,7 @@ public class OpenSaveResetPanel extends JPanel {
                                 exc.printStackTrace();
                             }
                             if (parsedFile != null) {
-                                frame.displayTable(parsedFile);
+                                frame.getWorkPanel().displayTable(parsedFile);
                             }
                         }
                         break;
@@ -70,9 +71,31 @@ public class OpenSaveResetPanel extends JPanel {
         osrButtonPanel.add(openButton);
         osrButtonPanel.add(resetButton);
 
+        resetButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                switch(tubNum){
+                    case 1:{
+                        frame.getWorkPanel().removeTable();
+                        break;
+                    }
+                    case 2:{
+                        frame.getWatchPanel().removeWatch();
+                        break;
+                    }
+                    case 3:{
+                        break;
+                    }
+                    default:{
+                        break;
+                    }
+                }
+            }
+        });
+
         if (numTub == 1) {
             saveButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    ParsedFile parsedFile =  frame.getWorkPanel().getParsFile();
                     if (parsedFile != null) {
                         try {
                             parser.save(parsedFile);
@@ -80,7 +103,7 @@ public class OpenSaveResetPanel extends JPanel {
                             exc.printStackTrace();
                         }
                     }
-                    frame.removeTable();
+                    frame.getWorkPanel().removeTable();
 
                 }
             });
@@ -93,6 +116,7 @@ public class OpenSaveResetPanel extends JPanel {
 
 
     private void loadFile(String filename) {
+        ParsedFile parsedFile = null;
         Parser parser = new Parser();
         try {
             parsedFile = parser.parse(filename, "UTF-8");

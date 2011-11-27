@@ -40,33 +40,6 @@ public class MainFrame extends JFrame {
         add(tabbedPane);
     }
 
-    public void displayTable(ParsedFile parsedFile) {
-        if (parsedFile != null) {
-
-            JTable dataTable = new DataTable(parsedFile);
-            parsedFile.initDataTable();
-
-            JPanel tablePanel = workPanel.getTablePanel();
-            tablePanel.setLayout(new GridBagLayout());
-            GridBagConstraints c = new GridBagConstraints();
-            c.gridx = 0;
-            c.gridy = 0;
-            c.anchor = GridBagConstraints.CENTER;
-            c.fill = GridBagConstraints.HORIZONTAL;
-
-            dataTable.setPreferredScrollableViewportSize(new Dimension(500, 300));
-            JScrollPane scrollPane = new JScrollPane(dataTable);
-            tablePanel.add(scrollPane, c);
-        }
-
-        validate();
-    }
-
-    public void removeTable(){
-        workPanel.getTablePanel().removeAll();
-        validate();
-    }
-
     public WorkPanel getWorkPanel(){
         return workPanel;
     }
