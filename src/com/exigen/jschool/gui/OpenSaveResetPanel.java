@@ -62,6 +62,7 @@ public class OpenSaveResetPanel extends JPanel {
                             exc.printStackTrace();
                         }
                     }
+                    frame.removeTable();
 
                 }
             });
