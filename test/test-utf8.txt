@@ -1,6 +1,0 @@
-﻿[EN]
-Cat = Cat
-Dog = Dog
-[RU]
-Cat = Котэ
-Dog = Собака

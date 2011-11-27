@@ -9,6 +9,33 @@ import java.util.*;
 public class Translation {
     private final List<Line> lines = new LinkedList<Line>();
     private final Map<String,Line> map = new HashMap<String, Line>();
+
+    //
+    private final Map<String, LinkedList<Integer>> indexMap = new HashMap<String, LinkedList<Integer>>();
+
+    public LinkedList<Integer> getIndexKey(String key){
+        return indexMap.get(key);
+    }
+
+    public void setIndexMap(){
+        Line line;
+        String key;
+        LinkedList<Integer> indexList;
+
+        for (int i = 0; i < lines.size(); i++){
+            line = lines.get(i);
+            key = line.getKey();
+
+            if (indexMap.containsKey(key)){
+                indexMap.get(key).add(i);
+            }else{
+                indexList = new LinkedList<Integer>();
+                indexList.add(i);
+                indexMap.put(key, indexList);
+            }
+        }
+    }
+    //
     private final String lang;
 
     /**

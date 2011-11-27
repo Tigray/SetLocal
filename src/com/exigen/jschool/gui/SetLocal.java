@@ -1,28 +1,33 @@
 package com.exigen.jschool.gui;
 
-import com.exigen.jschool.parser.FormatException;
-import com.exigen.jschool.parser.ParsedFile;
-import com.exigen.jschool.parser.Parser;
+import com.exigen.jschool.setlocal.FormatException;
+import com.exigen.jschool.setlocal.ParsedFile;
+import com.exigen.jschool.setlocal.Parser;
 
 import javax.swing.JFrame;
 import java.io.IOException;
-import java.util.LinkedList;
 
 public class SetLocal {
 
-	public static void main(String[] args) {
-        LinkedList list = new LinkedList();
-//		MainFrame  frame = new MainFrame();
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setVisible(true);
+    public static void main(String[] args) {
+        MainFrame frame = new MainFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
         Parser parser = new Parser();
+        ParsedFile parsedFile = null;
         try {
-            ParsedFile parsedFile = parser.parse("E:/ForBRAIN/IdeaProjects/SetLocal/testFiles/test.properties", "UTF-16");
+            parsedFile = parser.parse("E:/ForBRAIN/JavaCources/SetLocal/1.txt", "UTF-8");
+            System.out.println();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         } catch (FormatException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
+        if (parsedFile != null) {
+            frame.displayTable(parsedFile);
+        }
+
+
     }
 	
 }

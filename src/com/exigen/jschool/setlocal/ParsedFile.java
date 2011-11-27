@@ -1,20 +1,24 @@
 package com.exigen.jschool.setlocal;
 
+import javax.swing.table.AbstractTableModel;
 import java.util.*;
 
 /**
  * This class represents parsed properties file.
  * File contains list of translations to different languages.
  */
-public class ParsedFile {
+public class ParsedFile extends AbstractTableModel {
     private final List<Translation> translationList;
-    private final Map<String,Translation> translationMap;
+    private final Map<String, Translation> translationMap;
     private final String filename;
 
+
     private final String encoding;
+    private ArrayList<ArrayList> tableData;
 
     /**
      * Returns name of the file.
+     *
      * @return name of the file
      */
     public String getFilename() {
@@ -23,18 +27,19 @@ public class ParsedFile {
 
     /**
      * Returns encoding of parsed file.
+     *
      * @return encoding of parsed file
      */
     public String getEncoding() {
         return encoding;
     }
+
     /**
      * Constructs empty object
      * It should be filled by <code>addTranslation()</code>
-     * @param filename
-     *          name of the file
-     * @param encoding
-     *          Encoding of the file
+     *
+     * @param filename name of the file
+     * @param encoding Encoding of the file
      */
     public ParsedFile(String filename, String encoding) {
         translationList = new ArrayList<Translation>();
@@ -46,6 +51,7 @@ public class ParsedFile {
     /**
      * Returns list of all available translations.
      * List itself is not modifiable! Use addTranslation() instead.
+     *
      * @return list of {@link Translation} objects
      */
     public List<Translation> getTranslations() {
@@ -54,10 +60,10 @@ public class ParsedFile {
 
     /**
      * Returns translation for given language.
-     * @param lang
-     *          given language
+     *
+     * @param lang given language
      * @return {@link Translation} object for this language,
-     *          {@code null} if it doesn't exist.
+     *         {@code null} if it doesn't exist.
      */
     public Translation getTranslation(String lang) {
         return translationMap.get(lang);
@@ -67,10 +73,11 @@ public class ParsedFile {
      * Adds translation to available translations.
      * Warning: methods resets translation for translations,
      * that are already in file.
-     * @param translation
-     *          translation to be added to list
+     *
+     * @param translation translation to be added to list
      */
     public void addTranslation(Translation translation) {
+        translation.setIndexMap();
         String lang = translation.getLang();
         if (translationMap.containsKey(lang)) {
             translationList.remove(translationMap.get(lang));
@@ -81,11 +88,121 @@ public class ParsedFile {
 
     /**
      * Removes translation from file.
-     * @param translation
-     *          translation to be removed
+     *
+     * @param translation translation to be removed
      */
     public void removeTranslation(Translation translation) {
         translationList.remove(translation);
         translationMap.remove(translation.getLang());
     }
+
+//    public Class<?> getColumnClass(int columnIndex){
+//                return getValueAt(0, columnIndex).getClass();
+//
+//    }
+
+    public boolean isCellEditable(int row, int col) {
+        //Note that the data/cell address is constant,
+        //no matter where the cell appears onscreen.
+        if (col < 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public int getRowCount() {
+        return UniqueKeys.count();
+    }
+
+    public String getColumnName(int col) {
+        if (col == 0) {
+            return "keys";
+        } else {
+            return translationList.get(col - 1).getLang();
+        }
+    }
+
+    public int getColumnCount() {
+        return translationList.size() + 1;
+    }
+
+
+    public void setValueAt(Object value, int row, int col) {
+
+            tableData.get(row).set(col, value);
+            fireTableCellUpdated(row, col);
+
+        }
+
+    public Object getValueAt(int rowIndex, int columnIndex) {
+//        if (columnIndex == 0) {
+//            return UniqueKeys.getKey(rowIndex);
+//        } else {
+//            Translation translation = translationList.get(columnIndex - 1);
+//            List<Line> lines = translation.getLines();
+//            String key = UniqueKeys.getKey(rowIndex);
+//            LinkedList<Integer> indexKey = translation.getIndexKey(key);
+//
+//            if(indexKey != null){
+//                return lines.get(indexKey.get(0)).getValue();
+//            }else{
+//                return null;
+//            }
+//        }
+
+        return tableData.get(rowIndex).get(columnIndex);
+
+    }
+
+    public String[] getValue(int rowIndex, int columnIndex) {
+        String[] result;
+        if (columnIndex == 0) {
+            result = new String[1];
+            result[0] = UniqueKeys.getKey(rowIndex);
+            return result;
+        } else {
+            Translation translation = translationList.get(columnIndex - 1);
+            List<Line> lines = translation.getLines();
+            String key = UniqueKeys.getKey(rowIndex);
+            LinkedList<Integer> indexKey = translation.getIndexKey(key);
+            if (indexKey != null) {
+                result = new String[indexKey.size()];
+                for (int i = 0; i < result.length; i++) {
+                    result[i] = lines.get(indexKey.get(i)).getValue();
+                }
+                return result;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public void initDataTable(){
+        tableData = new ArrayList<ArrayList>();
+        for (int i = 0; i < UniqueKeys.count(); i++){
+            tableData.add(new ArrayList<String>());
+        }
+
+        for (int i = 0; i < UniqueKeys.count(); i++){
+           for (int j = 0; j < translationList.size() + 1; j++){
+
+               if (j == 0){
+                     tableData.get(i).add(UniqueKeys.getKey(i));
+               } else{
+                    Translation translation = translationList.get(j - 1);
+                    List<Line> lines = translation.getLines();
+                    String key = UniqueKeys.getKey(i);
+                    LinkedList<Integer> indexKey = translation.getIndexKey(key);
+
+                    if(indexKey != null){
+                        tableData.get(i).add(lines.get(indexKey.get(0)).getValue());
+                    }else{
+                        tableData.get(i).add(null);
+                    }
+               }
+            }
+        }
+    }
+
 }

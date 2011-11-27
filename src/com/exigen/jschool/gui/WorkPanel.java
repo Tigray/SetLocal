@@ -79,5 +79,10 @@ public class WorkPanel extends JPanel{
 
 		add(osrPanel, c);
     }
+
+    public JPanel getTablePanel(){
+        return tablePanel;
+    }
+
 	
 }
