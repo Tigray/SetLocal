@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
         if (parsedFile != null) {
 
             JTable dataTable = new DataTable(parsedFile);
-            parsedFile.initDataTable();
+            parsedFile.initDataTable2();
 
             JPanel tablePanel = workPanel.getTablePanel();
             tablePanel.setLayout(new GridBagLayout());

@@ -130,28 +130,14 @@ public class ParsedFile extends AbstractTableModel {
 
     public void setValueAt(Object value, int row, int col) {
 
-            tableData.get(row).set(col, value);
+            tableData.get(col).set(row, value);
             fireTableCellUpdated(row, col);
 
         }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-//        if (columnIndex == 0) {
-//            return UniqueKeys.getKey(rowIndex);
-//        } else {
-//            Translation translation = translationList.get(columnIndex - 1);
-//            List<Line> lines = translation.getLines();
-//            String key = UniqueKeys.getKey(rowIndex);
-//            LinkedList<Integer> indexKey = translation.getIndexKey(key);
-//
-//            if(indexKey != null){
-//                return lines.get(indexKey.get(0)).getValue();
-//            }else{
-//                return null;
-//            }
-//        }
-
-        return tableData.get(rowIndex).get(columnIndex);
+        return tableData.get(columnIndex).get(rowIndex);
+//        return tableData.get(rowIndex).get(columnIndex);
 
     }
 
@@ -205,4 +191,34 @@ public class ParsedFile extends AbstractTableModel {
         }
     }
 
+    public void initDataTable2(){
+        tableData = new ArrayList<ArrayList>();
+        for (int i = 0; i < translationList.size() + 1; i++){
+            tableData.add(new ArrayList<String>());
+        }
+
+        ArrayList list = tableData.get(0);
+        for (int i = 0; i < UniqueKeys.count(); i++){
+            list.add(UniqueKeys.getKey(i));
+        }
+
+        for (int i = 0; i < translationList.size(); i++){
+           list = tableData.get(i + 1);
+           for (int j = 0; j < UniqueKeys.count(); j++){
+
+
+                    Translation translation = translationList.get(i);
+                    List<Line> lines = translation.getLines();
+                    String key = UniqueKeys.getKey(j);
+                    LinkedList<Integer> indexKey = translation.getIndexKey(key);
+
+                    if(indexKey != null){
+                        list.add(lines.get(indexKey.get(0)).getValue());
+                    }else{
+                        list.add(null);
+                    }
+
+            }
+        }
+    }
 }
