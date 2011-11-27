@@ -133,7 +133,22 @@ public class ParsedFile extends AbstractTableModel {
 
         tableData.get(col).set(row, value);
         //
-
+        Translation translation = translationList.get(col - 1);
+        List<Line> lines = translation.getLines();
+        String key = UniqueKeys.getKey(row);
+        LinkedList<Integer> indexKey = translation.getIndexKey(key);
+        String valueSt = (String)value;
+        if (indexKey != null){
+            if (valueSt.length() != 0){
+                lines.set(indexKey.get(0), new Line(key, valueSt));
+            }else{
+                lines.set(indexKey.get(0), null);
+            }
+        }else{
+            if (valueSt.length() != 0){
+                lines.add(new Line(key, valueSt));
+            }
+        }
         //
         fireTableCellUpdated(row, col);
 
@@ -141,8 +156,6 @@ public class ParsedFile extends AbstractTableModel {
 
     public Object getValueAt(int rowIndex, int columnIndex) {
         return tableData.get(columnIndex).get(rowIndex);
-//        return tableData.get(rowIndex).get(columnIndex);
-
     }
 
     public String[] getValue(int rowIndex, int columnIndex) {

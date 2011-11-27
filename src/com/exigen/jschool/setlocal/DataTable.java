@@ -24,8 +24,7 @@ public class DataTable extends JTable {
         if (items != null) {
             if (items.length == 1) {
                 JTextField textField = new JTextField(items[0]);
-                textField.addActionListener(new TextFieldListener(textField, row, col));
-                return new DefaultCellEditor(new JTextField(items[0]));
+                return new DefaultCellEditor(textField);
             } else {
                 JComboBox comboBox = new JComboBox(items);
                 comboBox.addItemListener(new ComboBoxListener(comboBox, row, col));
@@ -33,31 +32,10 @@ public class DataTable extends JTable {
             }
         } else {
             JTextField textField = new JTextField();
-            textField.addActionListener(new TextFieldListener(textField, row, col));
-            return new DefaultCellEditor(new JTextField());
+            return new DefaultCellEditor(textField);
 
         }
 
-    }
-
-    private class TextFieldListener implements ActionListener {
-        private JTextField tf;
-        private int row;
-        private int col;
-
-        public TextFieldListener(JTextField textField, int rowNum, int colNum) {
-            tf = textField;
-            row = rowNum;
-            col = colNum;
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            Translation translation = parsedFileModel.getTranslations().get(col - 1);
-            List<Line> lines = translation.getLines();
-            String key = UniqueKeys.getKey(row);
-            LinkedList<Integer> indexKey = translation.getIndexKey(key);
-            lines.set(indexKey.get(0), new Line(key, tf.getText()));
-        }
     }
 
     private class ComboBoxListener implements ItemListener {
