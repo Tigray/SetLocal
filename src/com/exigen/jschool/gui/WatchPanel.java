@@ -19,6 +19,10 @@ public class WatchPanel extends JPanel{
         initPanel(frame);
 	}
 
+    public JPanel getWatchPanel(){
+        return watchPanel;
+    }
+
     private void initPanel(MainFrame frame){
         osrPanel = new OpenSaveResetPanel(2, frame);
         setLayout(new GridBagLayout());

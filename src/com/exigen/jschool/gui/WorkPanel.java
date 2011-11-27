@@ -1,7 +1,6 @@
 package com.exigen.jschool.gui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 
 import javax.swing.*;
 
@@ -76,6 +75,8 @@ public class WorkPanel extends JPanel{
 		c.weighty = 1;
 		c.anchor = GridBagConstraints.SOUTH;
 
+
+
 		add(osrPanel, c);
     }
 
@@ -83,5 +84,8 @@ public class WorkPanel extends JPanel{
         return tablePanel;
     }
 
-	
+
+    public JPanel getWorkPanel() {
+        return tablePanel;
+    }
 }

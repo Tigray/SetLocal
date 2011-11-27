@@ -66,4 +66,16 @@ public class MainFrame extends JFrame {
         workPanel.getTablePanel().removeAll();
         validate();
     }
+
+    public WorkPanel getWorkPanel(){
+        return workPanel;
+    }
+
+    public WatchPanel getWatchPanel(){
+        return watchPanel;
+    }
+
+    public ComparePanel getComparePanel(){
+        return comparePanel;
+    }
 }

@@ -122,12 +122,11 @@ public class Parser {
         for (Translation translation : parsedFile.getTranslations()) {
             writer.printf("[%s]%n", translation.getLang());
             for (Line line : translation.getLines()) {
-                writer.println(line);
+                if (line!=null) writer.println(line);
             }
             writer.println();
         }
         writer.flush();
         writer.close();
     }
-
 }

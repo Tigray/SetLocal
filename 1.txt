@@ -1,10 +1,9 @@
 [EN]
-null
+key1 = value1e
 key2 = value2e
 key3 = value3e
 key1 = value4e
 key3 = value5e
-
 [RU]
 key1 = value1r
 key3 = value2r

@@ -22,18 +22,18 @@ public class DataTable extends JTable {
 
         String[] items = parsedFileModel.getValue(row, col);
         if (items != null) {
-            if (items.length == 1){
+            if (items.length == 1) {
                 JTextField textField = new JTextField(items[0]);
-//                textField.addActionListener(new TextFieldListener(textField, row, col));
+                textField.addActionListener(new TextFieldListener(textField, row, col));
                 return new DefaultCellEditor(new JTextField(items[0]));
-            }else{
+            } else {
                 JComboBox comboBox = new JComboBox(items);
                 comboBox.addItemListener(new ComboBoxListener(comboBox, row, col));
                 return new DefaultCellEditor(comboBox);
             }
         } else {
             JTextField textField = new JTextField();
-//            textField.addActionListener(new TextFieldListener(textField, row, col));
+            textField.addActionListener(new TextFieldListener(textField, row, col));
             return new DefaultCellEditor(new JTextField());
 
         }
@@ -45,7 +45,7 @@ public class DataTable extends JTable {
         private int row;
         private int col;
 
-        public  TextFieldListener(JTextField textField, int rowNum, int colNum){
+        public TextFieldListener(JTextField textField, int rowNum, int colNum) {
             tf = textField;
             row = rowNum;
             col = colNum;
@@ -65,7 +65,7 @@ public class DataTable extends JTable {
         private int row;
         private int col;
 
-        public  ComboBoxListener(JComboBox comboBox, int rowNum, int colNum){
+        public ComboBoxListener(JComboBox comboBox, int rowNum, int colNum) {
             cBox = comboBox;
             row = rowNum;
             col = colNum;
@@ -81,9 +81,8 @@ public class DataTable extends JTable {
                 LinkedList<Integer> indexKey = translation.getIndexKey(key);
 
 
-
-                for (int i = 0; i < indexKey.size(); i++){
-                    if (i != selectedIndex){
+                for (int i = 0; i < indexKey.size(); i++) {
+                    if (i != selectedIndex) {
                         lines.set(indexKey.remove(i), null);
                     }
                 }

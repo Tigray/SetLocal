@@ -1,10 +1,9 @@
 package com.exigen.jschool.gui;
 
-import com.exigen.jschool.setlocal.FormatException;
-import com.exigen.jschool.setlocal.ParsedFile;
-import com.exigen.jschool.setlocal.Parser;
+import com.exigen.jschool.setlocal.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -25,28 +24,47 @@ public class OpenSaveResetPanel extends JPanel {
     JButton saveButton = new JButton("Save");
     JButton resetButton = new JButton("Reset");
 
+    private int tubNum;
+
     JFileChooser jFileChooser = new JFileChooser();
 
     public OpenSaveResetPanel(int numTub, MainFrame frame_m) {
 
         frame = frame_m;
+        tubNum = numTub;
 
         openButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parser = new Parser();
-                try {
-                    parsedFile = parser.parse("E:/ForBRAIN/JavaCources/SetLocal/1.txt", "UTF-8");
-                    System.out.println();
-                } catch (IOException exc) {
-                    exc.printStackTrace();
-                } catch (FormatException exc) {
-                    exc.printStackTrace();
+                JFileChooser fc = new JFileChooser();
+                switch (tubNum) {
+                    case 1: {
+                        if (fc.showOpenDialog(frame.getWorkPanel().getWorkPanel()) == JFileChooser.APPROVE_OPTION) {
+                            parser = new Parser();
+                            try {
+                                parsedFile = parser.parse(fc.getSelectedFile().getPath(), "UTF-8");
+                                System.out.println();
+                            } catch (IOException exc) {
+                                exc.printStackTrace();
+                            } catch (FormatException exc) {
+                                exc.printStackTrace();
+                            }
+                            if (parsedFile != null) {
+                                frame.displayTable(parsedFile);
+                            }
+                        }
+                        break;
+                    }
+                    case 2: {
+                        if (fc.showOpenDialog(frame.getWatchPanel().getWatchPanel()) == JFileChooser.APPROVE_OPTION) {
+                            loadFile(fc.getSelectedFile().getPath());
+                        }
+                        break;
+                    }
+                    default:
+                        break;
                 }
-                if (parsedFile != null) {
-                    frame.displayTable(parsedFile);
-                }
-
             }
+
         });
 
         osrButtonPanel.add(openButton);
@@ -55,7 +73,7 @@ public class OpenSaveResetPanel extends JPanel {
         if (numTub == 1) {
             saveButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if(parsedFile != null){
+                    if (parsedFile != null) {
                         try {
                             parser.save(parsedFile);
                         } catch (IOException exc) {
@@ -71,5 +89,44 @@ public class OpenSaveResetPanel extends JPanel {
 
         add(osrButtonPanel);
 
+    }
+
+
+    private void loadFile(String filename) {
+        Parser parser = new Parser();
+        try {
+            parsedFile = parser.parse(filename, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FormatException e) {
+            e.printStackTrace();
+        }
+        if (parsedFile != null) {
+            JPanel watchPanel = frame.getWatchPanel().getWatchPanel();
+            for (Translation translation : parsedFile.getTranslations()) {
+                JLabel section = new JLabel(String.format("[%s]%n", translation.getLang()));
+                section.setForeground(Color.BLUE);
+                section.setAlignmentX(Component.LEFT_ALIGNMENT);
+                watchPanel.add(section);
+                for (Line line : translation.getLines()) {
+                    JPanel linePanel = new JPanel();
+                    linePanel.setLayout(new BoxLayout(linePanel, BoxLayout.LINE_AXIS));
+                    JLabel key = new JLabel(line.getKey());
+                    key.setForeground(Color.RED);
+                    linePanel.add(key);
+                    JLabel equal = new JLabel(" = ");
+                    equal.setForeground(Color.BLACK);
+                    linePanel.add(equal);
+                    JLabel value = new JLabel(line.getValue());
+                    value.setForeground(Color.ORANGE);
+                    linePanel.add(value);
+                    linePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    watchPanel.add(linePanel);
+                }
+            }
+            frame.getWatchPanel().validate();
+        }
+
+//        getParent().repaint();
     }
 }
