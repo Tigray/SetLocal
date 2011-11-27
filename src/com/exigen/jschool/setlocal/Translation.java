@@ -60,7 +60,8 @@ public class Translation {
      * @return list of phrases
      */
     public List<Line> getLines() {
-        return Collections.unmodifiableList(lines);
+        return lines;
+//        return Collections.unmodifiableList(lines);
     }
 
     public void addLine(Line line) {

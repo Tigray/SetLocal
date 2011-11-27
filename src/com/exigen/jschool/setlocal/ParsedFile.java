@@ -55,7 +55,8 @@ public class ParsedFile extends AbstractTableModel {
      * @return list of {@link Translation} objects
      */
     public List<Translation> getTranslations() {
-        return Collections.unmodifiableList(translationList);
+        return translationList;
+//        return Collections.unmodifiableList(translationList);
     }
 
     /**
@@ -130,10 +131,13 @@ public class ParsedFile extends AbstractTableModel {
 
     public void setValueAt(Object value, int row, int col) {
 
-            tableData.get(col).set(row, value);
-            fireTableCellUpdated(row, col);
+        tableData.get(col).set(row, value);
+        //
 
-        }
+        //
+        fireTableCellUpdated(row, col);
+
+    }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
         return tableData.get(columnIndex).get(rowIndex);
@@ -164,59 +168,32 @@ public class ParsedFile extends AbstractTableModel {
         }
     }
 
-    public void initDataTable(){
+    public void initDataTable() {
         tableData = new ArrayList<ArrayList>();
-        for (int i = 0; i < UniqueKeys.count(); i++){
-            tableData.add(new ArrayList<String>());
-        }
-
-        for (int i = 0; i < UniqueKeys.count(); i++){
-           for (int j = 0; j < translationList.size() + 1; j++){
-
-               if (j == 0){
-                     tableData.get(i).add(UniqueKeys.getKey(i));
-               } else{
-                    Translation translation = translationList.get(j - 1);
-                    List<Line> lines = translation.getLines();
-                    String key = UniqueKeys.getKey(i);
-                    LinkedList<Integer> indexKey = translation.getIndexKey(key);
-
-                    if(indexKey != null){
-                        tableData.get(i).add(lines.get(indexKey.get(0)).getValue());
-                    }else{
-                        tableData.get(i).add(null);
-                    }
-               }
-            }
-        }
-    }
-
-    public void initDataTable2(){
-        tableData = new ArrayList<ArrayList>();
-        for (int i = 0; i < translationList.size() + 1; i++){
+        for (int i = 0; i < translationList.size() + 1; i++) {
             tableData.add(new ArrayList<String>());
         }
 
         ArrayList list = tableData.get(0);
-        for (int i = 0; i < UniqueKeys.count(); i++){
+        for (int i = 0; i < UniqueKeys.count(); i++) {
             list.add(UniqueKeys.getKey(i));
         }
 
-        for (int i = 0; i < translationList.size(); i++){
-           list = tableData.get(i + 1);
-           for (int j = 0; j < UniqueKeys.count(); j++){
+        for (int i = 0; i < translationList.size(); i++) {
+            list = tableData.get(i + 1);
+            for (int j = 0; j < UniqueKeys.count(); j++) {
 
 
-                    Translation translation = translationList.get(i);
-                    List<Line> lines = translation.getLines();
-                    String key = UniqueKeys.getKey(j);
-                    LinkedList<Integer> indexKey = translation.getIndexKey(key);
+                Translation translation = translationList.get(i);
+                List<Line> lines = translation.getLines();
+                String key = UniqueKeys.getKey(j);
+                LinkedList<Integer> indexKey = translation.getIndexKey(key);
 
-                    if(indexKey != null){
-                        list.add(lines.get(indexKey.get(0)).getValue());
-                    }else{
-                        list.add(null);
-                    }
+                if (indexKey != null) {
+                    list.add(lines.get(indexKey.get(0)).getValue());
+                } else {
+                    list.add(null);
+                }
 
             }
         }

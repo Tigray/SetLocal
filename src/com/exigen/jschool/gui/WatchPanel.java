@@ -13,13 +13,14 @@ public class WatchPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 	private JPanel watchPanel = new JPanel();
-	private OpenSaveResetPanel osrPanel = new OpenSaveResetPanel(2);
+	private OpenSaveResetPanel osrPanel;
 	
-	public WatchPanel() {
-        initPanel();
+	public WatchPanel(MainFrame frame) {
+        initPanel(frame);
 	}
 
-    private void initPanel(){
+    private void initPanel(MainFrame frame){
+        osrPanel = new OpenSaveResetPanel(2, frame);
         setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 

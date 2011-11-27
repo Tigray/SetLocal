@@ -21,11 +21,11 @@ public class MainFrame extends JFrame {
     private static final int DEFAULT_WIDTH = 700;
     private static final int DEFAULT_HEIGHT = 500;
 
-    JTabbedPane tabbedPane = new JTabbedPane();
+    private JTabbedPane tabbedPane = new JTabbedPane();
 
-    WorkPanel workPanel = new WorkPanel();
-    WatchPanel watchPanel = new WatchPanel();
-    ComparePanel comparePanel = new ComparePanel();
+    private WorkPanel workPanel = new WorkPanel(this);
+    private WatchPanel watchPanel = new WatchPanel(this);
+    private ComparePanel comparePanel = new ComparePanel(this);
 
     public MainFrame() {
         super();
@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
         if (parsedFile != null) {
 
             JTable dataTable = new DataTable(parsedFile);
-            parsedFile.initDataTable2();
+            parsedFile.initDataTable();
 
             JPanel tablePanel = workPanel.getTablePanel();
             tablePanel.setLayout(new GridBagLayout());
@@ -54,7 +54,7 @@ public class MainFrame extends JFrame {
             c.anchor = GridBagConstraints.CENTER;
             c.fill = GridBagConstraints.HORIZONTAL;
 
-            dataTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
+            dataTable.setPreferredScrollableViewportSize(new Dimension(500, 300));
             JScrollPane scrollPane = new JScrollPane(dataTable);
             tablePanel.add(scrollPane, c);
         }
@@ -62,4 +62,8 @@ public class MainFrame extends JFrame {
         validate();
     }
 
+    public void removeTable(){
+        workPanel.getTablePanel().removeAll();
+        validate();
+    }
 }

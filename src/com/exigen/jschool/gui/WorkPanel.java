@@ -4,8 +4,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 public class WorkPanel extends JPanel{
 
@@ -16,7 +14,7 @@ public class WorkPanel extends JPanel{
 
 	private JPanel tablePanel = new JPanel();
 	private JPanel keyButtonPanel = new JPanel();
-	private OpenSaveResetPanel osrPanel = new OpenSaveResetPanel(1);
+	private OpenSaveResetPanel osrPanel;
 	private JPanel filterPanel = new JPanel();
 	
 	private JButton addKeyButton = new JButton("Add Key");
@@ -28,11 +26,12 @@ public class WorkPanel extends JPanel{
 
     private JTable dataTable;
 
-	public WorkPanel() {
-		 initPanel();
+	public WorkPanel(MainFrame frame) {
+		 initPanel(frame);
 	}
 
-    private void initPanel(){
+    private void initPanel(MainFrame frame){
+        osrPanel = new OpenSaveResetPanel(1, frame);
         setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
