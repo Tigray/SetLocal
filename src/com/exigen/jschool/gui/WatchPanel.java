@@ -3,7 +3,7 @@ package com.exigen.jschool.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class WatchPanel extends JPanel{
 
@@ -25,6 +25,9 @@ public class WatchPanel extends JPanel{
 
     private void initPanel(MainFrame frame){
         osrPanel = new OpenSaveResetPanel(2, frame);
+
+        watchPanel.setLayout(new BoxLayout(watchPanel, BoxLayout.PAGE_AXIS));
+
         setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
