@@ -13,6 +13,10 @@ public class Translation {
     //
     private final Map<String, LinkedList<Integer>> indexMap = new HashMap<String, LinkedList<Integer>>();
 
+    public  Map<String, LinkedList<Integer>> getIndexMap(){
+        return indexMap;
+    }
+
     public LinkedList<Integer> getIndexKey(String key){
         return indexMap.get(key);
     }

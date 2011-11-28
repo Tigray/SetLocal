@@ -1,13 +1,12 @@
 [EN]
+key1 = value1e
 key2 = value2e
 key3 = value3e
 key1 = value4e
 key3 = value5e
-key5 = test5e
-
 [RU]
-key1 = test1r
-key5 = value3rtest
+key1 = value1r
+key3 = value2r
+key5 = value3r
 key2 = value4r
 key2 = value5r
-

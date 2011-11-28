@@ -3,7 +3,7 @@ package com.exigen.jschool.setlocal;
 import java.util.ArrayList;
 import java.util.List;
 
-class UniqueKeys {
+public class UniqueKeys {
     private static List<String> keys;
 
     public static boolean add(String key) {
