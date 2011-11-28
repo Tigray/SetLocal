@@ -181,6 +181,13 @@ public class ParsedFile extends AbstractTableModel {
         }
     }
 
+    public void reSetTable(int row){
+         for(int i = 0; i < translationList.size() + 1; i++){
+             ArrayList<String> translation = tableData.get(i);
+             translation.remove(row);
+         }
+    }
+
     public void initDataTable() {
         tableData = new ArrayList<ArrayList>();
         for (int i = 0; i < translationList.size() + 1; i++) {

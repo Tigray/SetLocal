@@ -40,6 +40,7 @@ public class WorkPanel extends JPanel {
     private ParsedFile parsFile;
 
     private String selectDeletedKey;
+    private int selectedIndex;
 
     public WorkPanel(MainFrame frame) {
         initPanel(frame);
@@ -75,7 +76,8 @@ public class WorkPanel extends JPanel {
                     }
 
                     UniqueKeys.remove(selectDeletedKey);
-                    parsFile.initDataTable();
+//                    parsFile.initDataTable();
+                    parsFile.reSetTable(selectedIndex);
                     parsFile.fireTableDataChanged();
                     selectDeletedKey = null;
                     deleteKeysComboBox.removeItemAt(deleteKeysComboBox.getSelectedIndex());
@@ -155,6 +157,7 @@ public class WorkPanel extends JPanel {
                     if (e.getStateChange() == ItemEvent.SELECTED) {
                         if (deleteKeysComboBox.getSelectedIndex() != -1){
                             selectDeletedKey = (String) deleteKeysComboBox.getSelectedItem();
+                            selectedIndex = deleteKeysComboBox.getSelectedIndex();
                         }
 
                     }
