@@ -72,8 +72,10 @@ public class WorkPanel extends JPanel {
                         Map<String, LinkedList<Integer>> indexMap = translation.getIndexMap();
                         List<Line> lines = translation.getLines();
                         LinkedList<Integer> indexKey = indexMap.remove(selectDeletedKey);
-                        for (int i = 0; i < indexKey.size(); i++) {
-                            lines.set(indexKey.get(i), null);
+                        if (indexKey != null){
+                            for (int i = 0; i < indexKey.size(); i++) {
+                                lines.set(indexKey.get(i), null);
+                            }
                         }
 
                     }
