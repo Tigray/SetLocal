@@ -4,6 +4,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.*;
 
 /**
+ * @author Roman Voropaev
  * This class represents parsed properties file.
  * File contains list of translations to different languages.
  */

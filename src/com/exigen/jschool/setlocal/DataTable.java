@@ -7,6 +7,9 @@ import java.awt.event.ItemListener;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Inga Ovod
+ */
 public class DataTable extends JTable {
 
     private ParsedFile parsedFileModel;

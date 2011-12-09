@@ -3,10 +3,14 @@ package com.exigen.jschool.gui;
 import javax.swing.JPanel;
 import java.awt.*;
 
+/**
+ * @author Inga Ovod
+ */
 public class ComparePanel extends JPanel{
 
 	/**
-	 * 
+     * Soryy ))
+	 *  At this moment compare panel doesn't work.
 	 */
 	private static final long serialVersionUID = 1L;
 

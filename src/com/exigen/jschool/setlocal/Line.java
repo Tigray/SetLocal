@@ -1,6 +1,7 @@
 package com.exigen.jschool.setlocal;
 
 /**
+ * @author Roman Voropaev
  * This class represents translation of given phrase,
  * key represents english phrase,
  * value represents translation to given language

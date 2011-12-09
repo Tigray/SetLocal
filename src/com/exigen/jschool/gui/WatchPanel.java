@@ -5,6 +5,9 @@ import java.awt.GridBagLayout;
 
 import javax.swing.*;
 
+/**
+ * @author Inga Ovod
+ */
 public class WatchPanel extends JPanel{
 
 	/**

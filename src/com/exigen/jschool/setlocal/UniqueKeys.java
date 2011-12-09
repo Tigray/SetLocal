@@ -3,6 +3,9 @@ package com.exigen.jschool.setlocal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Roman Voropaev
+ */
 public class UniqueKeys {
     private static List<String> keys;
 

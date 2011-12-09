@@ -1,11 +1,10 @@
 package com.exigen.jschool.gui;
 
-import com.exigen.jschool.setlocal.DataTable;
-import com.exigen.jschool.setlocal.ParsedFile;
-
 import javax.swing.*;
-import java.awt.*;
 
+/**
+ * @author Inga Ovod
+ */
 public class MainFrame extends JFrame {
 
     /**

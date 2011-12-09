@@ -2,6 +2,9 @@ package com.exigen.jschool.gui;
 
 import javax.swing.JFrame;
 
+/**
+ * @author Inga Ovod
+ */
 public class SetLocal {
 
     public static void main(String[] args) {

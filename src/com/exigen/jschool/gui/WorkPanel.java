@@ -15,6 +15,9 @@ import java.util.Map;
 
 import javax.swing.*;
 
+/**
+ * @author Inga Ovod
+ */
 public class WorkPanel extends JPanel {
 
     /**

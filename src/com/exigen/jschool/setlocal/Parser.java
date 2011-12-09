@@ -4,6 +4,7 @@ import java.io.*;
 import java.lang.String;
 
 /**
+ * @author Roman Voropaev
  * This class parses properties file.
  */
 public class Parser {

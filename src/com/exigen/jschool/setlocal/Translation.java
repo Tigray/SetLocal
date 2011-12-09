@@ -3,6 +3,7 @@ package com.exigen.jschool.setlocal;
 import java.util.*;
 
 /**
+ * @author Roman Voropaev
  * This class represents set of phrases
  * translated to given language
  */

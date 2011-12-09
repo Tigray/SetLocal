@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ * @author Inga Ovod
+ */
 public class OpenSaveResetPanel extends JPanel {
 
     /**
@@ -15,7 +18,6 @@ public class OpenSaveResetPanel extends JPanel {
      */
     private static final long serialVersionUID = 1L;
     MainFrame frame;
-//    ParsedFile parsedFile;
     Parser parser;
 
     JPanel osrButtonPanel = new JPanel();
@@ -25,8 +27,6 @@ public class OpenSaveResetPanel extends JPanel {
     JButton resetButton = new JButton("Reset");
 
     private int tubNum;
-
-    JFileChooser jFileChooser = new JFileChooser();
 
     public OpenSaveResetPanel(int numTub, MainFrame frame_m) {
 
@@ -68,8 +68,6 @@ public class OpenSaveResetPanel extends JPanel {
 
         });
 
-        osrButtonPanel.add(openButton);
-        osrButtonPanel.add(resetButton);
 
         resetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -91,6 +89,9 @@ public class OpenSaveResetPanel extends JPanel {
                 }
             }
         });
+
+        osrButtonPanel.add(openButton);
+        osrButtonPanel.add(resetButton);
 
         if (numTub == 1) {
             saveButton.addActionListener(new ActionListener() {
@@ -115,6 +116,7 @@ public class OpenSaveResetPanel extends JPanel {
     }
 
 
+    // This method write Roman Voropaev
     private void loadFile(String filename) {
         ParsedFile parsedFile = null;
         Parser parser = new Parser();
@@ -151,6 +153,5 @@ public class OpenSaveResetPanel extends JPanel {
             frame.getWatchPanel().validate();
         }
 
-//        getParent().repaint();
     }
 }
